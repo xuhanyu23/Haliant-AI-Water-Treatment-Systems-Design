@@ -1,0 +1,14 @@
+{
+  "name": "@repo/prompts",
+  "version": "1.0.0",
+  "description": "LLM prompts & tool definitions",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

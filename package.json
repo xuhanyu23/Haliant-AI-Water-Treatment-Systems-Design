@@ -1,6 +1,7 @@
 {
   "name": "water-systems",
   "private": true,
+  "packageManager": "pnpm@9.0.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -11,14 +12,10 @@
   "devDependencies": {
     "prettier": "^3.6.2",
     "turbo": "^2.5.6",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18"
-  },
-  "packageManager": "npm@11.5.1",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }

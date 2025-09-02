@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model DesignRun {
+  id          String   @id @default(cuid())
+  systemType  String
+  inputJson   Json
+  outputJson  Json
+  createdAt   DateTime @default(now())
+}
+
+model CatalogItem {
+  id        String   @id @default(cuid())
+  item      String
+  model     String?
+  specKey   String?
+  unitCost  Float?
+  vendor    String?
+  updatedAt DateTime @default(now())
+}

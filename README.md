@@ -1,135 +1,127 @@
-# Turborepo starter
+# Water Systems
 
-This Turborepo starter is maintained by the Turborepo core team.
+A monorepo for water treatment system calculations and BOM generation.
 
-## Using this example
+## Project Overview
 
-Run the following command:
+This is a web application for water treatment system design with:
+- **Frontend**: Next.js (React + TypeScript) + Tailwind + shadcn/ui, TanStack Query/Table
+- **Backend**: Express (TypeScript) with REST routes
+- **Shared packages**: calculators, schemas, prompts, ui
+- **AI Integration**: GPT-5 for formatting/specs/comments via tool-calling
 
-```sh
-npx create-turbo@latest
+## Architecture
+
+```
+water-systems/
+├─ apps/
+│  ├─ web/          # Next.js 14 (App Router)
+│  └─ api/          # Express + TS
+├─ packages/
+│  ├─ calculators/  # pure TS engineering rules
+│  ├─ schemas/      # Zod schemas
+│  ├─ prompts/      # LLM prompts & tool definitions
+│  └─ ui/           # shared React components & theme
+├─ .env.example
+├─ turbo.json
+├─ package.json
+└─ README.md
 ```
 
-## What's inside?
+## Features
 
-This Turborepo includes the following packages/apps:
+- **System Selector**: Menu for different water treatment systems
+- **Membrane Cleaning System (RO)**: Functional CIP page with input/output
+- **Deterministic Calculations**: Pure TypeScript engineering math
+- **AI-Powered Specs**: GPT-5 for polished specifications and comments
+- **BOM Generation**: Bill of Materials with costs and specifications
 
-### Apps and Packages
+## Getting Started
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Prerequisites
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- Node.js 20+
+- pnpm
 
-### Utilities
+### Installation
 
-This Turborepo has some additional tools already setup for you:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+3. Set up environment variables:
+   ```bash
+   cp .env.example apps/api/.env
+   # Edit apps/api/.env with your OpenAI API key
+   ```
+
+### Development
+
+Run both apps in development mode:
+
+```bash
+# Terminal 1 - API
+pnpm --filter api dev
+
+# Terminal 2 - Web
+pnpm --filter web dev
+```
+
+- API: http://localhost:4000
+- Web: http://localhost:3000
 
 ### Build
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+pnpm build
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Package Structure
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+### Apps
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+- **web**: Next.js frontend with Tailwind CSS and shadcn/ui
+- **api**: Express backend with TypeScript and OpenAI integration
 
-### Develop
+### Packages
 
-To develop all apps and packages, run the following command:
+- **calculators**: Pure TypeScript engineering calculations (no AI)
+- **schemas**: Zod schemas for inputs/outputs/BOM (shared by front/back/AI)
+- **prompts**: OpenAI system prompts + tool specifications
+- **ui**: Shared React components & theme tokens
 
-```
-cd my-turborepo
+## Environment Variables
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+Copy `.env.example` to `apps/api/.env` and configure:
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `API_ORIGIN`: API server origin (default: http://localhost:4000)
+- `WEB_ORIGIN`: Web app origin (default: http://localhost:3000)
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## Technology Stack
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
+- **Backend**: Express, TypeScript, OpenAI API
+- **Database**: PostgreSQL (via Prisma - to be added)
+- **Package Manager**: pnpm
+- **Monorepo**: Turborepo
+- **UI Components**: shadcn/ui
+- **Data Fetching**: TanStack Query
+- **Tables**: TanStack Table
+- **Forms**: React Hook Form + Zod
+- **Logging**: Pino
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+## Development Workflow
 
-### Remote Caching
+1. **Calculations**: Pure TypeScript in `packages/calculators`
+2. **Schemas**: Zod types in `packages/schemas`
+3. **AI Integration**: Prompts and tools in `packages/prompts`
+4. **UI Components**: Shared components in `packages/ui`
+5. **Frontend**: Next.js app in `apps/web`
+6. **Backend**: Express API in `apps/api`
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## License
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+Private project - All rights reserved.
